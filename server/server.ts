@@ -90,3 +90,10 @@ app.post(
     res.send('success');
   }
 );
+
+// ログアウトAPI
+// @ts-ignore
+app.get('/api/logout', (req, res) => {
+  req.logout();
+  res.send('success');
+});
