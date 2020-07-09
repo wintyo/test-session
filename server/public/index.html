@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <div>ユーザ名: <span id="userName"></span></div>
+  <div>
+    <input id="user" type="text" placeholder="ユーザ名">
+    <input id="password" type="password" placeholder="パスワード">
+    <button onclick="login()">送信</button>
+  </div>
+  <a href="login.html">ログイン画面</a>
+
+  <script>
+    async function login() {
+      const username = document.getElementById('user').value;
+      const password = document.getElementById('password').value;
+
+      const res = await axios.post('/api/login', {
+        username,
+        password
+      });
+      console.log(res);
+      await getUserInfo();
+    }
+
+    async function getUserInfo() {
+      const res = await axios.get('/api/user');
+      console.log('user name:', res.data);
+
+      const elUserName = document.getElementById('userName');
+      elUserName.innerText = res.data;
+    }
+
+    getUserInfo();
+  </script>
+</body>
+</html>
