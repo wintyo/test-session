@@ -13,7 +13,7 @@
     <input id="password" type="password" placeholder="パスワード">
     <button onclick="login()">送信</button>
   </div>
-  <a href="login.html">ログイン画面</a>
+  <button onclick="logout()">ログアウト</button>
 
   <script>
     async function login() {
@@ -24,6 +24,12 @@
         username,
         password
       });
+      console.log(res);
+      await getUserInfo();
+    }
+
+    async function logout() {
+      const res = await axios.get('/api/logout');
       console.log(res);
       await getUserInfo();
     }
