@@ -1,9 +1,5 @@
 node_modules/
-electron/main.js
-electron/preload.js
-electron/data/
-electron/dist/
-electron/out/
+server/server.js
 
 # エラー関係
 package-lock.json

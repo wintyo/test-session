@@ -1,8 +1,14 @@
-import path from 'path';
-import Express, { urlencoded } from 'express';
-import passport from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local';
-import session from 'express-session';
+import * as path from 'path';
+// ビルドが上手くいかないのでとりあえずrequireにする
+// import Express, { urlencoded } from 'express';
+// import passport from 'passport';
+// import { Strategy as LocalStrategy } from 'passport-local';
+// import session from 'express-session';
+const Express = require('express');
+const { urlencoded } = Express;
+const passport = require('passport');
+const { Strategy: LocalStrategy } = require('passport-local');
+const session = require('express-session');
 
 const app = Express();
 
