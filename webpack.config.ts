@@ -17,8 +17,9 @@ const config: webpack.Configuration = {
     port: 3030,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
-      }
+        target: 'https://session-test-wintyo.herokuapp.com/',
+        changeOrigin: true,
+      },
     },
     historyApiFallback: true,
   },
