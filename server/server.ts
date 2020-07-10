@@ -1,23 +1,15 @@
 import * as path from 'path';
-// ビルドが上手くいかないのでとりあえずrequireにする
-// import Express from 'express';
-// import passport from 'passport';
-// import { Strategy as LocalStrategy } from 'passport-local';
-// import session from 'express-session';
-const Express = require('express');
-const passport = require('passport');
-const { Strategy: LocalStrategy } = require('passport-local');
-const session = require('express-session');
+import Express = require('express');
+import passport = require('passport');
+import passportLocal = require('passport-local');
+import session = require('express-session');
+const { Strategy: LocalStrategy } = passportLocal;
 
 const app = Express();
 
-const PORT = 3000;
-const server = app.listen(process.env.PORT || 3000, () => {
-  // @ts-ignore
-  const host = server.address().address;
-  // @ts-ignore
-  const port = server.address().port;
-  console.log(`START SERVER http://${host}:${port}`);
+const PORT = process.env.PORT || 3000;
+const server = app.listen(PORT, () => {
+  console.log(`START SERVER http://localhost:${PORT}`);
 });
 
 app.use(Express.json());
@@ -40,7 +32,6 @@ passport.use(new LocalStrategy(
     passReqToCallback: true,
     session: true,
   },
-  // @ts-ignore
   (req, username, password, done) => {
     if (username === "test" && password === "test") {
       return done(null, username)
@@ -51,12 +42,10 @@ passport.use(new LocalStrategy(
   }
 ));
 
-// @ts-ignore
 passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-// @ts-ignore
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
@@ -69,7 +58,6 @@ app.post('/login', passport.authenticate('local', {
 }));
 
 // ログイン後のユーザ名を取得する
-// @ts-ignore
 app.get('/api/user', (req, res) => {
   if (!req.isAuthenticated()) {
     res.send(null);
@@ -85,14 +73,12 @@ app.post(
   passport.authenticate('local', {
     session: true,
   }),
-  // @ts-ignore
   (req, res) => {
     res.send('success');
   }
 );
 
 // ログアウトAPI
-// @ts-ignore
 app.get('/api/logout', (req, res) => {
   req.logout();
   res.send('success');
